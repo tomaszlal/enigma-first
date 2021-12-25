@@ -3,6 +3,7 @@ package ma.cu.lalewicz.construction.element;
 import ma.cu.lalewicz.construction.utils.Util;
 
 public class RotorBlock {
+    private SwitchBoard switchBoard; //przelacznica wtyczkowa
     private Rotor rotorRight; //rotor prawy pierwszy
     private Rotor rotorMiddle; //rotor srodkowy drugi
     private Rotor rotorLeft; //rotor lewy trzeci
@@ -13,7 +14,8 @@ public class RotorBlock {
     private int startPosRotorLeft;
 
 
-    public RotorBlock(Rotor rotorRight, Rotor rotorMiddle, Rotor rotorLeft, ReflectorReversing reflectorRev) {
+    public RotorBlock(SwitchBoard switchBoard, Rotor rotorRight, Rotor rotorMiddle, Rotor rotorLeft, ReflectorReversing reflectorRev) {
+        this.switchBoard = switchBoard;
         this.rotorRight = rotorRight;
         this.rotorMiddle = rotorMiddle;
         this.rotorLeft = rotorLeft;
@@ -25,7 +27,9 @@ public class RotorBlock {
 
     public char encodeChar(char character) {
         int charInt = Util.toInt(character);
-        System.out.print("Lit: "+Util.toChar(charInt)+" w1<:");
+        System.out.print("Lit: "+Util.toChar(charInt)+" sb ");
+        charInt = switchBoard.encode(charInt);
+        System.out.print(" "+Util.toChar(charInt)+" w1<:");
         if (rotorRight.moveRotorAndReturnIndent()){
             if(rotorMiddle.moveRotorAndReturnIndent()){
                 rotorLeft.moveRotorAndReturnIndent();
@@ -45,6 +49,8 @@ public class RotorBlock {
         charInt = rotorMiddle.encryptBackward(charInt);
         System.out.print(" "+Util.toChar(charInt)+" w1>:"+ rotorRight.getPositionRotor()+ " ");
         charInt = rotorRight.encryptBackward(charInt);
+        System.out.print(Util.toChar(charInt)+" sb ");
+        charInt = switchBoard.encode(charInt);
         System.out.println(Util.toChar(charInt));
         return Util.toChar(charInt);
     }

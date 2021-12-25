@@ -9,7 +9,7 @@ public class ReflectorReversing implements SimpleSwitch {
     private int[] tableWire = new int[26];
 
     public ReflectorReversing(String dataRef) {
-        String[] tableRef = dataRef.split(" ");
+            String[] tableRef = dataRef.split(" ");
 //        System.out.println();
 //        for (String element:tableRef) {
 //            System.out.print(element+", ");

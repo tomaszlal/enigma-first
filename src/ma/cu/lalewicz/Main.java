@@ -3,6 +3,7 @@ package ma.cu.lalewicz;
 import ma.cu.lalewicz.construction.element.ReflectorReversing;
 import ma.cu.lalewicz.construction.element.Rotor;
 import ma.cu.lalewicz.construction.element.RotorBlock;
+import ma.cu.lalewicz.construction.element.SwitchBoard;
 import ma.cu.lalewicz.construction.utils.Util;
 
 public class Main {
@@ -16,14 +17,16 @@ public class Main {
         char[] rotor_III = {'B','D','F','H','J','L','C','P','R','T','X','V','Z','N','Y','E','I','W','G','A','K','M','U','S','Q','O'};
         int rotor_III_indentPosition = Util.toInt('W');
         String dataReflectionB = "(AY) (BR) (CU) (DH) (EQ) (FS) (GL) (IP) (JX) (KN) (MO) (TZ) (VW)";
+        String dataSwBoard = "(FR) (YE) (US) (QO) (FS) (GL) (KB)";
 //        for (int i=0;i<26;i++)  System.out.println(i+"-"+Util.toChar(i));
         System.out.println("Enigma system");
 
+        SwitchBoard switchBoard = new SwitchBoard(dataSwBoard);
         Rotor rotorR = new Rotor(rotor_I,22,rotor_I_indentPosition);
         Rotor rotorM = new Rotor(rotor_II,5,rotor_II_indentPosition);
         Rotor rotorL = new Rotor(rotor_III,22,rotor_III_indentPosition);
         ReflectorReversing invertReflector = new ReflectorReversing(dataReflectionB);
-        RotorBlock rotorsBlock = new RotorBlock(rotorR,rotorM,rotorL,invertReflector);
+        RotorBlock rotorsBlock = new RotorBlock(switchBoard,rotorR,rotorM,rotorL,invertReflector);
 
         String plainText = "ALAMAKOTAAKOTMAALETOJESTWIADOMOSCDLAUBOOTAODBOOTA";
         String secretText = "";
